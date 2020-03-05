@@ -1,24 +1,16 @@
 <template>
-  <div id="test">
-    {{ msg }}
+  <div id="app">
+    <router-view />
   </div>
 </template>
 
 <script>
-
-export default {
-  data () {
-    return {
-      msg: 'hello'
-    }
-  }
-}
+export default {}
 </script>
 
-<style>
-
-#test {
-  column-count: 4;
-}
+<style lang="stylus">
+@import '../assets/styl/variable.styl'
+#app
+  background-color : $site-bg-color
 
 </style>
