@@ -29,10 +29,11 @@
 </template>
 
 <script>
-import JForm from '@base/jform/JForm'
-import { genValidator } from '@helper/ele'
-import { doLogin } from '@api/user'
-import { SUCCESS_CODE } from '@helper/constants'
+import JForm from "@base/jform/JForm"
+import { mapMutations  } from 'vuex'
+import { genValidator } from "@helper/ele"
+import { doLogin } from "@api/user"
+import { LOGGIN, AFTER_LOGIN } from '@store/mutation-types'
 export default {
   components: {
     JForm
@@ -40,37 +41,50 @@ export default {
   data () {
     return {
       ruleForm: {
-        username: '',
-        password: ''
+        username: "",
+        password: ""
       },
       rules: {
         username: {
-          ...genValidator('用户名不能为空')
+          ...genValidator("用户名不能为空")
         },
         password: {
-          ...genValidator('密码不能为空')
+          ...genValidator("密码不能为空")
         }
       }
+    };
+  },
+  computed: {
+    isLogin() {
+      return this.$store.state.login.isLogin
     }
   },
   created () {
     this.option = {
-      confirmText: '登录'
+      confirmText: "登录"
     }
   },
+  beforeRouteEnter({params:{username}}, from, next) {
+    next(vm => {
+      if(username) {
+        vm.ruleForm.username = username
+      }
+    })
+  },
   methods: {
+    ...mapMutations([LOGGIN, AFTER_LOGIN]),
     handleSubmit () {
-      const { username, password } = this.ruleForm
-      const router = this.$router
+      const _this = this
+      this[LOGGIN]()
+      const { username, password } = this.ruleForm;
+      const router = this.$router;
       doLogin({ username, password }).then(data => {
-        if (data.code !== SUCCESS_CODE) {
-          return alert('登录失败')
-        }
-        router.push({ name: 'main' })
-      })
+        _this[AFTER_LOGIN]()
+        router.push({ name: "main" })
+      }, error => alert(error.toString()))
     }
   }
-}
+};
 </script>
 
 <style lang="stylus"></style>

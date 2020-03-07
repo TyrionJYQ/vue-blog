@@ -17,6 +17,9 @@ export default [
   {
     name: 'main',
     path: '/main',
+    meta: {
+      requiresAuth: true
+    },
     component: resolve => require(['@layout/main/MainPage'], resolve),
     children: [{
       name: 'home',

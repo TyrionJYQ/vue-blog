@@ -1,14 +1,14 @@
 import App from '@components/App'
 import Vue from 'vue'
-import registerPlugins from '@helper/registerPlugins'
 import router from '@router'
 import '@assets/styl/index.styl'
+import store from '@store'
 
-registerPlugins(Vue)
 
 new Vue({
   el: '#app',
   router,
+  store, 
   render (h) {
     return h(App)
   }

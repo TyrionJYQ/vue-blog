@@ -1,10 +1,10 @@
 <template>
   <el-form
-    ref="form"
     class="form"
     :model="model"
     :rules="rules"
     status-icon
+    :ref="refName"
   >
     <slot />
     <el-form-item>
@@ -22,6 +22,12 @@
 export default {
   // props: ['option', 'rules', 'model'],
   props: {
+    refName: {
+      type: String,
+      default() {
+        return 'form'
+      }
+    },
     option: {
       type: Object,
       default () {
@@ -46,7 +52,7 @@ export default {
   },
   methods: {
     onSubmit () {
-      this.$refs.form.validate(valid => {
+      this.$refs[this.refName].validate(valid => {
         if (valid) {
           this.$emit('submit')
           return true

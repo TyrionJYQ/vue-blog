@@ -5,7 +5,11 @@
     ],
     "rules": {
         "no-new": "off",
-        "no-unused-vars":1
+        "no-unused-vars":1,
+        "semi": 0,
+        "quote-props":0,
+        "quotes": 0,
+        "space-before-function-pare": 0
     },
     "parserOptions": {
         "parser": "babel-eslint"
