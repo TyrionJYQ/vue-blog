@@ -80,7 +80,7 @@ export default {
       const router = this.$router;
       doLogin({ username, password }).then(data => {
         _this[AFTER_LOGIN]()
-        router.push({ name: "main" })
+         _this.$message.success({message:'登录成功', onClose: () => router.push({ name: "main" })})
       }, error => alert(error.toString()))
     }
   }
